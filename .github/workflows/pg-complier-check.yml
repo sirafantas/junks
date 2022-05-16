@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - run: cat /etc/os-release
-    - run: apt info postgresql-server-dev-14
-    - run: sudo apt install postgresql-server-dev-14
+    - run: apt-get info postgresql-server-dev-14
+    - run: sudo apt-get install postgresql-server-dev-14
     - run: cat /usr/lib/postgresql/14/lib/pgxs/src/Makefile.global | grep -E ^CLANG
     - run: cat /etc/apt/sources.list | grep -E ^deb
