@@ -1,0 +1,15 @@
+name: Postgres Compiler Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-22.04
+
+    steps:
+    - run: apt info postgresql-server-dev-14
+    - run: sudo apt install postgresql-server-dev-14
+    - run: cat /usr/lib/postgresql/14/lib/pgxs/src/Makefile.global
+    - run: cat /etc/apt/sources.list
