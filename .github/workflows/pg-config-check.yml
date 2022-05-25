@@ -1,4 +1,4 @@
-name: Postgres Compiler Check
+name: Postgres Config Check
 
 on:
   workflow_dispatch:
