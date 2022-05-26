@@ -50,8 +50,7 @@ jobs:
         echo "$HOME/.local/pgsql/bin" >> $GITHUB_PATH
         echo "PGDATA=$HOME/.local/pgsql/data" >> $GITHUB_ENV
         echo "LD_LIBRARY_PATH=$HOME/.local/pgsql/lib" >> $GITHUB_ENV
-    - name: Prepare PostgreSQL
-      run: |
-        pg_config
-        pg_ctl init 
-        pg_ctl start
+    - run: sudo dpkg -l
+    - run: printenv
+    - run: pg_config
+    - run: cat $HOME/.local/pgsql/lib/pgxs/src/Makefile.global
