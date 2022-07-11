@@ -54,3 +54,4 @@ jobs:
     - run: printenv
     - run: pg_config
     - run: cat $HOME/.local/pgsql/lib/pgxs/src/Makefile.global
+    - run: ldconfig -v
