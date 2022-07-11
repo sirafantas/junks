@@ -1,0 +1,12 @@
+name: Env Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - run: dpkg -l
+    - run: printenv
+    - run: ldconfig -v 2>/dev/null | grep -v ^$'\t'
