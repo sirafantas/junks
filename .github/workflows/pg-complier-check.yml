@@ -1,4 +1,4 @@
-name: Postgres Compiler Check
+name: Postgres Package Check
 
 on:
   workflow_dispatch:
@@ -12,8 +12,17 @@ jobs:
     - run: cat /etc/os-release
     - run: sudo apt-get update
     - run: sudo apt-get upgrade
+    - run: apt-cache show postgresql-server-14
+    - run: sudo apt-get install postgresql-server-14
     - run: apt-cache show postgresql-server-dev-14
     - run: sudo apt-get install postgresql-server-dev-14
+    - name: Prepare PostgreSQL
+      run: |
+        sudo systemctl start postgresql
+        sudo -i -u postgres psql -c "CREATE ROLE ${USER} WITH LOGIN SUPERUSER"
+        sudo -i -u postgres psql -c "CREATE DATABASE ${USER}"
     - run: cat /usr/lib/postgresql/14/lib/pgxs/src/Makefile.global | grep -E ^CLANG
     - run: cat /etc/apt/sources.list | grep -E ^deb
     - run: pg_config
+    - run: cat /etc/postgresql/14/main/postgresql.conf
+    - run: cat psql -c 'SELECT name, setting FROM pg_settings'
