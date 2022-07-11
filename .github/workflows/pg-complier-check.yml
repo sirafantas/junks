@@ -12,8 +12,8 @@ jobs:
     - run: cat /etc/os-release
     - run: sudo apt-get update
     - run: sudo apt-get upgrade
-    - run: apt-cache show postgresql-server-14
-    - run: sudo apt-get install postgresql-server-14
+    - run: apt-cache show postgresql-14
+    - run: sudo apt-get install postgresql-14
     - run: apt-cache show postgresql-server-dev-14
     - run: sudo apt-get install postgresql-server-dev-14
     - name: Prepare PostgreSQL
