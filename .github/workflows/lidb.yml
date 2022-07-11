@@ -1,0 +1,27 @@
+name: LineairDB Install Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Install dependencies
+      run: sudo apt-get install postgresql-server-dev-14 libboost-dev libnuma-dev gcc-12 g++-12
+    - name: Prepare PostgreSQL
+      run: |
+        sudo systemctl start postgresql
+        sudo -i -u postgres psql -c "CREATE ROLE ${USER} WITH LOGIN SUPERUSER"
+        sudo -i -u postgres psql -c "CREATE DATABASE ${USER}"
+    - uses: actions/checkout@v3
+      with:
+        repository: 'nikezono/LineairDB'
+        submodules: 'recursive'
+        path: 'lineairdb'
+    - name: Install LineairDB
+      run: |
+        cmake -S $GITHUB_WORKSPACE/lineairdb -B $GITHUB_WORKSPACE/lineairdb/build -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release
+        make -C $GITHUB_WORKSPACE/lineairdb/build
+        sudo make -C $GITHUB_WORKSPACE/lineairdb/build install
+    - run: ldconfig -v 2>/dev/null | grep lineairdb
