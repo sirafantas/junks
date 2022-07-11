@@ -25,4 +25,4 @@ jobs:
     - run: cat /etc/apt/sources.list | grep -E ^deb
     - run: pg_config
     - run: cat /etc/postgresql/14/main/postgresql.conf
-    - run: cat psql -c 'SELECT name, setting FROM pg_settings'
+    - run: psql -c 'SELECT name, setting FROM pg_settings'
